@@ -2,29 +2,29 @@ import mongoose from 'mongoose';
 
 const employeeSchema = new mongoose.Schema(
     {
-        emp_id: { 
+        empId: { 
           type: String, 
           required: true, 
           unique: true 
         },
-        emp_name: { 
+        empName: { 
           type: String, 
           required: true 
         },
-        emp_email: { 
+        empEmail: { 
           type: String, 
           required: true, 
           unique: true 
         },
-        emp_password:{
+        empPassword:{
           type: String,
           required: true
         },
-        emp_status:{
+        empStatus:{
             type: String,
             default:"available"
         },
-        emp_role: { 
+        empRole: { 
             type: String, 
             default: 'employee' 
         }

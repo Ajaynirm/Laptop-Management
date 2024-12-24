@@ -1,5 +1,4 @@
 import Employee from "../model/employee.model.js";
-import Laptop from "../model/laptop.model.js";
 import Assignment from "../model/assignment.model.js";
 
 
@@ -12,17 +11,66 @@ export const getEmployee = async (req,res) => {
         return res.status(201).json(laptopData);
       }
     }catch(e){
-      console.log("Erro while getting Laptop data");
+      console.log("Error while getting Laptop data");
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
-  
+  // after work done need to update return date
   export const assignLaptop = async (req,res) => {
-    
+    const {assignId,laptopId,empId} = req.body;
+    try{
+      const employeeAvail = await Employee.findById({empId});
+
+      // i think i have to initialize transaction for Atomicity...
+      if(employeeAvail.emp=="available"){
+        const newAssign = new Assignment({
+          assignId,
+          laptopId,
+          empId
+        });
+        await newAssign.save();
+        const updateEmployStatus = await Employee.findByIdAndUpdate({empId},{status:"working"});
+        if(updateEmployStatus && newAssign){
+          return res.status({message: "successfully assigned"})
+        }
+
+
+
+      }else{
+        return res.send({message: "Employee not available"});
+      }
+    }catch(e){
+      res.send({message:e.message});
+    }
   }
   
+
+
   export const getAssignedLaptop = async (req,res) => {
-    
+    try{
+      const data=await Assignment.find({});
+      if(data){
+        return res.status(201).json(data);
+      }
+      return res.send({message: "no files found"});
+    }catch(e){
+      return res.status(500).send({message: "Internal server error on employ manage controller"});
+    }
   }
 
+  // for employee to see their assigned laptop
+  export const viewAssignLaptop = async (req,res) => {
+    const {empId} = req.body;
+    try{
+      const empAssignment = await Assignment.findOne({empId});
+      if(empAssignment){
+        return res.status(201).json(empAssignment);
+      }
+      return res.status(200).send({message:'No Assignment found'});
+    }catch(e){
+      res.status(500).send({message:"Internal Server error"});
+    }
+  }
   
+
+

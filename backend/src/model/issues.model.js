@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 
 const issuesSchema = new mongoose.Schema(
-{
+{    
+    issueId:{
+      type: String,
+      required:true
+    },
     laptopId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Laptop', 

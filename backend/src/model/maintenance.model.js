@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const maintenanceSchema = new mongoose.Schema(
     {
+      maintenanceId:{
+        type: String,
+        required: true
+      },
     laptopId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Laptop', 
@@ -30,3 +34,6 @@ const maintenanceSchema = new mongoose.Schema(
      timestamps: true 
     }
 );
+
+const Maintenance = mongoose.model('Maintenance',maintenanceSchema);
+export default Maintenance;
