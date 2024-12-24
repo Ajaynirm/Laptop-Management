@@ -1,15 +1,19 @@
 import express from "express";
-import { checkAuth, login, logout, signup, updateProfile } from "../controllers/auth.controller.js";
-import { protectRoute } from "../middleware/auth.middleware.js";
+import { AdminCheckAuth, EmployeeCheckAuth, AdminLogin, EmployeeLogin, logout, EmployeeSignup, AdminSignup } from "../controller/auth.controller.js";
+import { protectRouteForEmployee, protectRouteForAdmin } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/login", login);
-router.post("/logout", logout);
+router.post("/admin-signup", AdminSignup);
+router.post("/employee-signup", EmployeeSignup);
+router.post("/admin-login", AdminLogin);
+router.post("/employee-login", EmployeeLogin);
+router.get("/logout", logout);
 
-router.put("/update-profile", protectRoute, updateProfile);
 
-router.get("/check", protectRoute, checkAuth);
+router.get("/check-admin", protectRouteForAdmin, AdminCheckAuth);
+router.get("/check-employee", protectRouteForEmployee, EmployeeCheckAuth);
 
 export default router;
+
+

@@ -2,11 +2,6 @@ import mongoose from 'mongoose';
 
 const adminSchema = new mongoose.Schema(
     {
-        id: { 
-          type: String, 
-          required: true, 
-          unique: true 
-        },
         name: { 
           type: String, 
           required: true 
@@ -16,9 +11,9 @@ const adminSchema = new mongoose.Schema(
           required: true, 
           unique: true 
         },
-        department: { 
-          type: String, 
-          required: true 
+        password:{
+          type: String,
+          required: true
         },
         role: { 
             type: String, 
@@ -31,5 +26,7 @@ const adminSchema = new mongoose.Schema(
       
 );
 
-const Employee = mongoose.model('Employee',employeeSchema);
-export default Employee;
+const Admin = mongoose.model('Admin',adminSchema);
+export default Admin;
+
+

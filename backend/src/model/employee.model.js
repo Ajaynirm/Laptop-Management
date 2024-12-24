@@ -16,9 +16,9 @@ const employeeSchema = new mongoose.Schema(
           required: true, 
           unique: true 
         },
-        department: { 
-          type: String, 
-          required: true 
+        password:{
+          type: String,
+          required: true
         },
         status:{
             type: String,
