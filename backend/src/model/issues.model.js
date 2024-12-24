@@ -41,3 +41,4 @@ const issuesSchema = new mongoose.Schema(
 );
 
 const Issue = mongoose.model("Issue",issuesSchema);
+export default Issue;

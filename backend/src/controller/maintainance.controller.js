@@ -1,9 +1,5 @@
-import Admin from "../model/admin.model.js";
-import Employee from "../model/employee.model.js";
-import Laptop from "../model/laptop.model.js";
-import Assignment from "../model/assignment.model.js";
 import Maintenance from "../model/maintenance.model.js";
-import Issue from "../model/issues.model.js"
+import Issue from "../model/issues.model.js";
 
 export const addMaintainance = async (req,res) => {
   const {maintenanceId,laptopId,description,status,cost} =req.body;
