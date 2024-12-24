@@ -1,6 +1,7 @@
 import { generateToken } from "../lib/utils.js";
 import Admin from "../model/admin.model.js";
 import Employee from "../model/employee.model.js";
+import Laptop from "../model/laptop.model.js";
 import bcrypt from "bcryptjs";
 
 

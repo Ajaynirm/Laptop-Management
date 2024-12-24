@@ -3,31 +3,30 @@ import mongoose from "mongoose";
 const laptopSchema = new mongoose.Schema(
     {
       //I am creating id field for custom identification of laptop  rather than using default _id....
-      id: { 
+      lap_id: { 
         type: String, 
         required: true, 
         unique: true 
       },
-      brand: { 
+      lap_brand: { 
         type: String, 
         required: true 
       },
-      model: { 
+      lap_model: { 
         type: String, 
         required: true 
       },
-      serialNumber: { 
+      lap_serialNumber: { 
         type: String, 
         required: true, 
         unique: true 
       },
-      status: { 
+      lap_status: { 
         type: String, 
         enum: ['available', 'assigned', 'maintenance'], 
         default: 'available',
-        required: true 
       },
-      purchaseDate: { 
+      lap_purchaseDate: { 
         type: Date, 
         required: true 
       },

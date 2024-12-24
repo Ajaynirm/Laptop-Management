@@ -7,6 +7,9 @@ import path from "path";
 import { connectDB } from './src/lib/db.js';
 
 import authRoutes from "./src/route/auth.route.js";
+import employManageRoutes from './src/route/employee.manage.route.js'
+import laptopRoute from './src/route/laptop.manage.route.js'
+import maintainanceRoutes from './src/route/maintainance.route.js'
 
 
 dotenv.config();
@@ -26,6 +29,9 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
+app.use("/api/manage",employManageRoutes);
+app.use("/api/laptop", laptopRoute);
+app.use("/api/maintain", maintainanceRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
