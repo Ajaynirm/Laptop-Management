@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const maintenanceSchema = new mongoose.Schema(
     {
-      maintenanceId:{
-        type: String,
-        required: true
-      },
     laptopId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Laptop', 

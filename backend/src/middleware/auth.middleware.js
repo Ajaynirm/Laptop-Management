@@ -22,7 +22,7 @@ export const protectRouteForAdmin = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // check it 
+    // it will send to Admin - decoded from the jwt token
     req.admin = admin;
 
     next();
@@ -51,7 +51,7 @@ export const protectRouteForEmployee = async (req, res, next) => {
     if (!employee) {
       return res.status(404).json({ message: "User not found" });
     }
-
+    // it will send to Employee - decoded from the jwt token
     req.employee = employee;
 
     next();

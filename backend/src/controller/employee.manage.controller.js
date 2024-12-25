@@ -17,14 +17,13 @@ export const getEmployee = async (req,res) => {
   }
   // after work done need to update return date
   export const assignLaptop = async (req,res) => {
-    const {assignId,laptopId,empId} = req.body;
+    const {laptopId,empId} = req.body;
     try{
       const employeeAvail = await Employee.findById({empId});
 
       // i think i have to initialize transaction for Atomicity...
       if(employeeAvail.emp=="available"){
         const newAssign = new Assignment({
-          assignId,
           laptopId,
           empId
         });

@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 
 const assignmentSchema = new mongoose.Schema(
     {
-      assignId:{
-        type: String,
-        required: true,
-      },
+     
     laptopId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Laptop', 

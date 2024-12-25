@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 
 const issuesSchema = new mongoose.Schema(
 {    
-    issueId:{
-      type: String,
-      required:true
-    },
+    
     laptopId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Laptop', 
@@ -19,13 +16,11 @@ const issuesSchema = new mongoose.Schema(
         type: String, 
         enum: ['low', 'medium', 'high', 'critical'], 
         default: 'low',
-        required: true 
       },
       status: { 
         type: String, 
-        enum: ['open', 'in progress', 'resolved', 'closed'], 
-        default: 'open',
-        required: true 
+        enum: [ 'in progress', 'resolved'], 
+        default: 'in progress',
       },
       reportedBy: { 
         type: mongoose.Schema.Types.ObjectId, 

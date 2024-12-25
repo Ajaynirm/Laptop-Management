@@ -2,20 +2,20 @@ import mongoose from 'mongoose';
 
 const adminSchema = new mongoose.Schema(
     {
-        ad_name: { 
+        name: { 
           type: String, 
           required: true 
         },
-        ad_email: { 
+        email: { 
           type: String, 
           required: true, 
           unique: true 
         },
-        ad_password:{
+        password:{
           type: String,
           required: true
         },
-        ad_role: { 
+        role: { 
             type: String, 
             default: 'admin' 
         }

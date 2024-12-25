@@ -5,9 +5,10 @@ import { AdminCheckAuth, EmployeeCheckAuth, AdminLogin,
 import { protectRouteForEmployee, protectRouteForAdmin } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
-
+//signup adding admin and employee
 router.post("/admin-signup", AdminSignup);
 router.post("/employee-signup", EmployeeSignup);
+//Authenticate and validate user 
 router.post("/admin-login", AdminLogin);
 router.post("/employee-login", EmployeeLogin);
 router.get("/logout", logout);

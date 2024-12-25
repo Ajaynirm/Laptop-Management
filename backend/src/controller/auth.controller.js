@@ -1,7 +1,6 @@
 import { generateToken } from "../lib/utils.js";
 import Admin from "../model/admin.model.js";
 import Employee from "../model/employee.model.js";
-import Laptop from "../model/laptop.model.js";
 import bcrypt from "bcryptjs";
 
 
@@ -100,23 +99,24 @@ export const AdminLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const admin = await Admin.findOne({ email });
-
+    console.log("up")
     if (!admin) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
+    console.log("mid")
     const isPasswordCorrect = await bcrypt.compare(password, admin.password);
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
+    console.log("mid2")
     generateToken(admin._id, res);
-
+    console.log("mid3")
     res.status(200).json({
-      id: admin.id,
+      id: admin._id,
       name: admin.name,
       email: admin.email,
     });
+    console.log("down")
   } catch (error) {
     console.log("Error in Admin login controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
@@ -135,14 +135,14 @@ export const EmployeeLogin = async (req, res) => {
 
     const isPasswordCorrect = await bcrypt.compare(password, employee.password);
     if (!isPasswordCorrect) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     generateToken(employee._id, res);
 
     res.status(200).json({
-      id: employee.id,
-      name: employee.fullName,
+      id: employee._id,
+      name: employee.name,
       email: employee.email,
     });
   } catch (error) {
@@ -174,7 +174,7 @@ export const AdminCheckAuth = (req, res) => {
 };
 export const EmployeeCheckAuth = (req, res) => {
   try {
-    res.status(200).json(req.admin);
+    res.status(200).json(req.employee);
   } catch (error) {
     console.log("Error in Employee checkAuth controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
