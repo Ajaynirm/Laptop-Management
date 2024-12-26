@@ -20,6 +20,9 @@ import RequestLap from "./emp-components/RequesLap.jsx"
 import ReportIssue from "./emp-components/ReportIssue.jsx";
 import UpdateLaptop from "./admin-components/UpdateLaptop.jsx";
 import DeleteLaptop from "./admin-components/DeleteLaptop.jsx";
+import ViewEmployee from "./admin-components/ViewEmployee.jsx";
+import AddEmployee  from "./admin-components/AddEmployee.jsx";
+import AddMaintenance from "./admin-components/AddMaintenance.jsx";
 
 function App() {
   const {AuthAdmin,AuthEmployee,checkAdminAuth,checkEmpAuth, isCheckingAdminAuth,isCheckingEmployAuth}  = auth();
@@ -70,7 +73,11 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/my-assign" element={AuthEmployee ? <ViewAssigLap/> : <Navigate to="/employee-login" />} /> 
         <Route path="/request-laptop" element={AuthEmployee ? <RequestLap/> : <Navigate to="/employee-login" />} /> 
         <Route path="/report-issue" element={AuthEmployee ? <ReportIssue/> : <Navigate to="/employee-login" />} /> 
-          
+
+
+          <Route path="/view-emp" element={AuthAdmin ? <ViewEmployee/> : <Navigate to="/Admin-login" />} />
+          <Route path="/add-emp" element={AuthAdmin ? <AddEmployee /> : <Navigate to="/Admin-login" />} />
+          <Route path="/add-maintain" element={AuthAdmin ? <AddMaintenance /> : <Navigate to="/Admin-login" />} />
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
     </>

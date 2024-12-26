@@ -66,7 +66,7 @@ export const AdNav = () => {
                   <button onClick={()=>navigate("/view")}>view Report</button>
                 </li>
                 <li>
-                  <button onClick={()=>navigate("/view-employee")}>view Employees</button>
+                  <button onClick={()=>navigate("/view-emp")}>view Employees</button>
                 </li>
               </ul>
             </div>

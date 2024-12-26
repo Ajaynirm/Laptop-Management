@@ -79,7 +79,7 @@ const AdminHome = () => {
           <div className="card-body">
             <h2 className="card-title">view Employees</h2>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary" onClick={()=>navigate('/view-employee')}>View</button>
+              <button className="btn btn-primary" onClick={()=>navigate('/view-emp')}>View</button>
             </div>
           </div>
         </div>

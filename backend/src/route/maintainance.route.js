@@ -5,8 +5,8 @@ import {  protectRouteForEmployee,protectRouteForAdmin } from "../middleware/aut
 const router = express.Router();
 
 // wait 
-router.post("/add-maintainance",protectRouteForAdmin,addMaintainance)
-router.get("/view-all-maintainance",protectRouteForAdmin,viewMaintainance)
+router.post("/add-maintenance",protectRouteForAdmin,addMaintainance)
+router.get("/view-all-maintenance",protectRouteForAdmin,viewMaintainance)
 router.post("/report-issue",protectRouteForEmployee,reportIssue)
 router.get("/view-issues",protectRouteForAdmin,viewIsues)
 

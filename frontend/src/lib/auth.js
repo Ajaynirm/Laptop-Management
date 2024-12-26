@@ -5,6 +5,7 @@ import {toast} from "react-hot-toast";
 export const auth = create((set)=> ({
 
   laptopData: null,
+  employeeData: null,
   
  AuthEmployee: null,
  AuthAdmin: null,
@@ -108,6 +109,9 @@ export const auth = create((set)=> ({
       //getting data for update and delete operations
       setLaptopData: (item)=> {
           set({laptopData: item});
+      },
+      setEmployeeData: (item)=> {
+        set({employeeData: item})
       }
 }));
 

@@ -3,18 +3,22 @@ import Assignment from "../model/assignment.model.js";
 
 
 
-export const getEmployee = async (req,res) => {
-    try{
-      const employees = await Employee.find({});
-      if(employees){
-        res.send({message: "Data received Successfully"});
-        return res.status(201).json(laptopData);
-      }
-    }catch(e){
-      console.log("Error while getting Laptop data");
-      res.status(500).json({ message: "Internal Server Error" });
+export const getEmployee = async (req, res) => {
+  try {
+    const employees = await Employee.find();
+    if (employees) {
+      return res.status(200).json({
+        employees
+      });
+    } else {
+      return res.status(404).json({ message: "No employees found" });
     }
+  } catch (e) {
+    console.error("Error while getting employee data:", e);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
+};
+
   // after work done need to update return date
   export const assignLaptop = async (req,res) => {
     const {laptopId,empId} = req.body;
@@ -32,9 +36,6 @@ export const getEmployee = async (req,res) => {
         if(updateEmployStatus && newAssign){
           return res.status({message: "successfully assigned"})
         }
-
-
-
       }else{
         return res.send({message: "Employee not available"});
       }

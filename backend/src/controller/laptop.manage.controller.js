@@ -56,24 +56,30 @@ export const addLaptop = async (req,res) => {
   };
   
   
-  export const deleteLaptop = async(req,res) => {
-     const {_id} = req.body;
-     try{
-        const deletedlaptop = await Laptop.findByIdAndDelete({_id});
-        if(deletedlaptop){
-           res.status(201).json({
-            _id: deletedlaptop._id,
-            brand: deletedlaptop.brand,
-            model: deletedlaptop.model,
-            serialNumber:deletedlaptop.serialNumber
-          });
-          return  res.status(500).json({ message: "Laptop Deleted sucessfully" });
-        }
-     }catch(e){
-      console.log("Error in delete laptop controller laptop");
-      res.status(500).json({ message: "Internal Server Error" });
-     }
-  }
+  export const deleteLaptop = async (req, res) => {
+    const { _id } = req.body;
+  
+    try {
+      const deletedLaptop = await Laptop.findByIdAndDelete(_id);
+      if (deletedLaptop) {
+        return res.status(200).json({
+          message: "Laptop deleted successfully",
+          deletedLaptop: {
+            _id: deletedLaptop._id,
+            brand: deletedLaptop.brand,
+            model: deletedLaptop.model,
+            serialNumber: deletedLaptop.serialNumber,
+          },
+        });
+      } else {
+        return res.status(404).json({ message: "Laptop not found" });
+      }
+    } catch (e) {
+      console.error("Error in deleteLaptop controller:", e);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
+  
   
   export const getAllLaptop= async (req,res) => {
     try{
@@ -88,3 +94,26 @@ export const addLaptop = async (req,res) => {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+
+export  const getAllLaptopId = async (req, res) => {
+    try {
+      // Fetch laptops from the database
+      const laptops = await Laptop.find({}, '_id name'); // Only fetch `_id` and `name`
+      if (!laptops || laptops.length === 0) {
+        return res.status(404).json({ message: 'No laptops found' });
+      }
+  
+      // Respond with the laptops
+      res.status(200).json({
+        message: 'Laptops fetched successfully',
+        laptops,
+      });
+    } catch (error) {
+      console.error('Error fetching laptops:', error);
+      res.status(500).json({
+        message: 'Error fetching laptops',
+        error: error.message,
+      });
+    }
+  };

@@ -23,7 +23,6 @@ const maintenanceSchema = new mongoose.Schema(
       },
       loggedAt: { 
         type: Date, 
-        required: true, 
         default: Date.now 
       },
     },{

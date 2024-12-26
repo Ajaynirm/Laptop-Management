@@ -50,9 +50,9 @@ export const AdminSignup = async (req, res) => {
 
 
 export const EmployeeSignup = async (req, res) => {
-  const { id,name, email, password } = req.body;
+  const { name, email, password } = req.body;
   try {
-    if (!id || !name || !email || !password) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -62,13 +62,12 @@ export const EmployeeSignup = async (req, res) => {
 
     const employee = await Employee.findOne({ email });
 
-    if (employee) return res.status(400).json({ message: "Email already exists or id" });
+    if (employee) return res.status(400).json({ message: "Email already exists" });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newEmployee = new Employee({
-      id,
       name,
       email,
       password: hashedPassword,
@@ -80,7 +79,7 @@ export const EmployeeSignup = async (req, res) => {
       await newEmployee.save();
 
       res.status(201).json({
-        id: newEmployee.id,
+        _id: newEmployee._id,
         name: newEmployee.name,
         email: newEmployee.email,
       });
@@ -93,7 +92,46 @@ export const EmployeeSignup = async (req, res) => {
   }
 };
 
+export const EmployeeSignupByAdmin = async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
+    }
+
+    const employee = await Employee.findOne({ email });
+
+    if (employee) return res.status(400).json({ message: "Email already exists" });
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newEmployee = new Employee({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    if (newEmployee) {
+      await newEmployee.save();
+
+      return  res.status(201).json({
+        _id: newEmployee._id,
+        name: newEmployee.name,
+        email: newEmployee.email,
+      });
+    } else {
+      res.status(400).json({ message: "Invalid user data" });
+    }
+  } catch (error) {
+    console.log("Error in employee signup controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 export const AdminLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -108,9 +146,7 @@ export const AdminLogin = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-    console.log("mid2")
     generateToken(admin._id, res);
-    console.log("mid3")
     res.status(200).json({
       id: admin._id,
       name: admin.name,

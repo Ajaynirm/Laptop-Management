@@ -2,13 +2,13 @@ import Maintenance from "../model/maintenance.model.js";
 import Issue from "../model/issues.model.js";
 
 export const addMaintainance = async (req,res) => {
-  const {maintenanceId,laptopId,description,status,cost} =req.body;
-  
+  const {laptopId,description,status,cost} =req.body;
+ 
   try{
-    const alreadyHaveId = await Maintenance.findById({laptopId});
+    const alreadyHaveId = await Maintenance.findById(laptopId);
+
     if(!alreadyHaveId){
     const newMaint= new Maintenance({
-      maintenanceId,
       laptopId,
       description,
       status,
@@ -19,7 +19,7 @@ export const addMaintainance = async (req,res) => {
       return res.status(201).send({message:"maintenance added"}).json(newMaint);
     }
   }else{
-    return res.status(401).send({message: "maintenance already"})
+    return res.status(401).send({message: "maintenance already exist"})
   }
 
   }catch(e){
@@ -29,7 +29,7 @@ export const addMaintainance = async (req,res) => {
 
 export const viewMaintainance = async (req,res) => {
 try{
- const data = await Maintenance.find({});
+ const data = await Maintenance.find();
  if(data){
   return res.status(201).json(data);
  }
