@@ -1,29 +1,25 @@
-import Admin from "../model/admin.model.js";
-import Employee from "../model/employee.model.js";
 import Laptop from "../model/laptop.model.js";
-import Assignment from "../model/assignment.model.js";
 
 
+// for debugging purpose i used console.log() to identify the place where occur
 export const addLaptop = async (req,res) => {
-    const { id,brand,model,serialNumber,status,purchaseDate } = req.body;
+    const { brand,model,serialNumber,status,purchaseDate } = req.body;  
     try{
-      const laptop = await Laptop.findById(id);
-      if(laptop){
-        console.log("laptop id already exist", error.message);
-        res.status(500).json({ message: "Laptop id already exist" });
-      }
       const newLaptop = new Laptop({
-        id,brand,model,serialNumber,status,purchaseDate
+        brand,model,serialNumber,status,purchaseDate
       });
+      //
+      console.log("laptop going to create")
       if (newLaptop) {
     
         await newLaptop.save();
   
         res.status(201).json({
-          id: newLaptop.id,
+          _id: newLaptop._id,
           brand: newLaptop.brand,
           model: newLaptop.model
         });
+        console.log("laptop created")
   
       } else {
         res.status(400).json({ message: "Invalid user data" });
@@ -35,37 +31,38 @@ export const addLaptop = async (req,res) => {
   }
   }
   
-  export const updateLaptop = async(req,res) => {
-    const { id,brand,model,serialNumber,status,purchaseDate } = req.body;
-    try{  
-        const updatedlaptop = await Laptop.findByIdAndUpdate({id},{brand,model,serialNumber,status,purchaseDate},{new:true});
-        if(!updatedlaptop){
-          console.log("Error in updating laptop", error.message);
-          return res.status(500).json({ message: "Database Server Error" });
-        }
+  export const updateLaptop = async (req, res) => {
+    const { _id, brand, model, serialNumber } = req.body;
+    try {
       
-      res.status(201).json({
-        id: updatedlaptop.id,
-        brand: updatedlaptop.brand,
-        model: updatedlaptop.model,
-        serialNumber:updatedlaptop.serialNumber,
-        status:updatedlaptop.status
+      const updatedLaptop = await Laptop.findByIdAndUpdate(
+        _id, 
+        { brand, model, serialNumber},
+        { new: true } 
+      );
+      if (!updatedLaptop) {
+        return res.status(404).json({ message: "Laptop not found" });
+      }
+      return res.status(200).json({
+        _id: updatedLaptop._id,
+        brand: updatedLaptop.brand,
+        model: updatedLaptop.model,
+        serialNumber: updatedLaptop.serialNumber,
       });
-      return  res.status(500).json({ message: "Laptop updated sucessfully" });
+    } catch (error) {
+      console.error("Error in update laptop controller:", error.message);
+      return res.status(500).json({ message: "Internal Server Error" });
     }
-  catch (error) {
-    console.log("Error in add laptop controller", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-  }
+  };
+  
   
   export const deleteLaptop = async(req,res) => {
-     const {id} = req.body;
+     const {_id} = req.body;
      try{
-        const deletedlaptop = await Laptop.findByIdAndDelete(id);
+        const deletedlaptop = await Laptop.findByIdAndDelete({_id});
         if(deletedlaptop){
            res.status(201).json({
-            id: deletedlaptop.id,
+            _id: deletedlaptop._id,
             brand: deletedlaptop.brand,
             model: deletedlaptop.model,
             serialNumber:deletedlaptop.serialNumber
@@ -80,11 +77,12 @@ export const addLaptop = async (req,res) => {
   
   export const getAllLaptop= async (req,res) => {
     try{
-      const laptopData = await Laptop.find({});
-      if(laptopData){
-        res.send({message: "Data received Successfully"});
-        return res.status(201).json(laptopData);
+      const laptops = await Laptop.find();
+      if (!laptops || laptops.length === 0) {
+        return res.status(404).json({ message: "No laptops found" });
       }
+        return res.status(201).json(laptops);
+
     }catch(e){
       console.log("Erro while getting Laptop data");
       res.status(500).json({ message: "Internal Server Error" });

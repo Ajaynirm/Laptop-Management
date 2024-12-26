@@ -42,10 +42,13 @@ const EmpNav = () => {
                   <button onClick={navigate("/emp")}>Homepage</button>
                 </li>
                 <li>
-                  <button>Portfolio</button>
+                  <button onClick={navigate("/my-assign")}>View Assigned</button>
                 </li>
                 <li>
-                  <button>About</button>
+                  <button onClick={navigate("/request--laptop")}>Request</button>
+                </li>
+                <li>
+                  <button onClick={navigate("/report-issue")}>Report</button>
                 </li>
               </ul>
             </div>

@@ -14,7 +14,7 @@ import maintainanceRoutes from './src/route/maintainance.route.js'
 
 dotenv.config();
 
-const port = process.env.PORT||4000;
+const port = process.env.PORT;
 console.log(port)
 const __dirname = path.resolve();
 const app = express();

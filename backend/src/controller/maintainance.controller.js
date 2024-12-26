@@ -5,7 +5,7 @@ export const addMaintainance = async (req,res) => {
   const {maintenanceId,laptopId,description,status,cost} =req.body;
   
   try{
-    const alreadyHaveId = await Maintenance.findById({maintenanceId});
+    const alreadyHaveId = await Maintenance.findById({laptopId});
     if(!alreadyHaveId){
     const newMaint= new Maintenance({
       maintenanceId,
@@ -19,7 +19,7 @@ export const addMaintainance = async (req,res) => {
       return res.status(201).send({message:"maintenance added"}).json(newMaint);
     }
   }else{
-    return res.send({message: "maintenance id will be unique"});
+    return res.status(401).send({message: "maintenance already"})
   }
 
   }catch(e){

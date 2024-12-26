@@ -2,7 +2,6 @@ import { Routes,Route,Navigate } from "react-router-dom"
 import { useEffect } from "react";
 import { auth } from "./lib/auth.js";
 
-
 import {Loader} from "lucide-react";
 import { Toaster } from "react-hot-toast";
 
@@ -19,6 +18,8 @@ import AdminLogin from "./pages/AdminLogin.jsx";
 import EmployLogin from "./pages/EmployLogin.jsx";
 import RequestLap from "./emp-components/RequesLap.jsx"
 import ReportIssue from "./emp-components/ReportIssue.jsx";
+import UpdateLaptop from "./admin-components/UpdateLaptop.jsx";
+import DeleteLaptop from "./admin-components/DeleteLaptop.jsx";
 
 function App() {
   const {AuthAdmin,AuthEmployee,checkAdminAuth,checkEmpAuth, isCheckingAdminAuth,isCheckingEmployAuth}  = auth();
@@ -57,6 +58,9 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/emp" element={AuthAdmin ? <EmployHome/> : <Navigate to="/admin-login" />} />      
         <Route path="/manage" element={AuthAdmin ? <ManageLap/>: <Navigate to="/admin-login" />} /> 
 
+        <Route path="/update-laptop" element={AuthAdmin ? <UpdateLaptop/>: <Navigate to="/admin-login" />} />
+        <Route path="/delete-laptop" element={AuthAdmin ? <DeleteLaptop/>: <Navigate to="/admin-login" />} />
+
         <Route path="/assign" element={AuthAdmin ? <AssignLap/>: <Navigate to="/admin-login" />} />  
         <Route path="/track" element={AuthAdmin ? <TrackStatus/>: <Navigate to="/admin-login" />} />  
         <Route path="/view" element={AuthAdmin ? <ViewReport/>: <Navigate to="/admin-login" />} />  
@@ -68,9 +72,9 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/report-issue" element={AuthEmployee ? <ReportIssue/> : <Navigate to="/employee-login" />} /> 
           
       </Routes>
-   
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   )
 }
 
-export default App
+export default App;

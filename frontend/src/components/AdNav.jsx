@@ -1,12 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../lib/auth";
+import { auth } from "../lib/auth.js";
 export const AdNav = () => {
   const {logout} = auth();
   const navigate=useNavigate();
-  const handleLogout = async()=>{
-    await logout();
-    navigate("/");
+  const handleLogout = async ()=>{
+    try {
+      const res=await logout(); 
+      if (res.status === 200) {
+        navigate("/");
+      } else {
+        console.error("Logout failed.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+   
+
+     
   }
 
   return (
@@ -40,13 +51,22 @@ export const AdNav = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <button>Homepage</button>
+                  <button onClick={()=>navigate("/admin")}>Homepage</button>
                 </li>
                 <li>
-                  <button>Portfolio</button>
+                  <button onClick={()=>navigate("/manage")}>manage </button>
                 </li>
                 <li>
-                  <button>About</button>
+                  <button onClick={()=>navigate("/assign")}>Assign Laptop</button>
+                </li>
+                <li>
+                  <button onClick={()=>navigate("/track")}>Track status</button>
+                </li>
+                <li>
+                  <button onClick={()=>navigate("/view")}>view Report</button>
+                </li>
+                <li>
+                  <button onClick={()=>navigate("/view-employee")}>view Employees</button>
                 </li>
               </ul>
             </div>
@@ -136,15 +156,16 @@ export const AdNav = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a className="justify-between">
+                  <a className="justify-between" >
                     Profile
                     <span className="badge">New</span>
                   </a>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <a >Settings</a>
                 </li>
                 <li>
+                  {/* when the logout button clicked it go to backend and delete or reset the jwt token and sent to Login page */}
                   <a onClick={handleLogout}>Logout</a>
                 </li>
               </ul>

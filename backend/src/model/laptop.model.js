@@ -14,17 +14,15 @@ const laptopSchema = new mongoose.Schema(
       },
       serialNumber: { 
         type: String, 
-        required: true, 
-        unique: true 
+        required: true,
       },
       status: { 
         type: String, 
         enum: ['available', 'assigned', 'maintenance'], 
         default: 'available',
       },
-      lap_purchaseDate: { 
-        type: Date, 
-        required: true 
+      purchaseDate: { 
+        type: Date
       },
     },
 

@@ -3,6 +3,8 @@ import { axiosInstance } from "../lib/axios.js";
 import {toast} from "react-hot-toast";
 
 export const auth = create((set)=> ({
+
+  laptopData: null,
   
  AuthEmployee: null,
  AuthAdmin: null,
@@ -13,6 +15,8 @@ export const auth = create((set)=> ({
  //we can check everytime even refresh the page (for loading component)
  isCheckingAdminAuth: true,
  isCheckingEmployAuth: true,
+
+
 
  //checking employee authentication by sending cookies received when employee login is success.     
   //by verifying cookies in backed with help of jwt 
@@ -47,7 +51,6 @@ export const auth = create((set)=> ({
           console.log('started')
           const res = await axiosInstance.post("/auth/admin-login", data);
           set({ AuthAdmin: res.data });
-          console.log(res.data);
           toast.success("Logged in successfully");
         } catch (error) {
           toast.error(error.response.data.message);
@@ -74,12 +77,18 @@ export const auth = create((set)=> ({
       // deleting the cookie jwt token to empty or delete it.,
       logout: async () => {
         try {
-          await axiosInstance.post("/auth/logout");
-          set({ authUser: null });
-          toast.success("Logged out successfully");
-          get().disconnectSocket();
+          const res=await axiosInstance.get("/auth/logout");
+          if(res.data.status == 'success'){
+            set({ AuthAdmin: null });
+            set({ AuthEmployee: null });
+            toast.success("Logged out successfully")
+            return res;
+          }
+          throw new Error("Unexpected response");
+        
         } catch (error) {
           toast.error(error.response.data.message);
+          throw error
         }
       },
 
@@ -96,6 +105,10 @@ export const auth = create((set)=> ({
           set({ isSigningUp: false });
         }
       },
+      //getting data for update and delete operations
+      setLaptopData: (item)=> {
+          set({laptopData: item});
+      }
 }));
 
 

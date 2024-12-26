@@ -7,7 +7,7 @@ const AssignLap = () => {
   const [Unassigned, setUnAssigned] = useState(null);
   const fetchAssign = async ()=>{
     try {
-      const res=await axiosInstance.get("/maintain/view-all-maintainance");
+      const res=await axiosInstance.get("/manage/get-assigned");
     if(res){
       setAssigned(res.data);
       console.log(res.data);
@@ -30,7 +30,11 @@ const AssignLap = () => {
   }
 useEffect(()=>{
   fetchAssign();
-});
+},[]);
+
+useEffect(()=>{
+  fetchUnAssign();
+},[]);
   return (
     <>
       <AdNav />
