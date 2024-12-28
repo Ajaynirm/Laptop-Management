@@ -76,7 +76,7 @@ const ViewEmployee = () => {
         No Employees available to see
       </div>
     ) : (
-      <div className="overflow-y-auto max-h-[400px] w-full border border-gray-300 rounded shadow">
+      <div className="overflow-auto  w-full border border-gray-300 rounded">
         <table className="table-auto w-full text-left">
           <thead>
             <tr >

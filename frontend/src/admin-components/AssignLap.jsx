@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { AdNav } from "../components/AdNav";
 import { axiosInstance } from "../lib/axios.js";
-
+import { useNavigate } from "react-router-dom";
 const AssignLap = () => {
   const [assigned, setAssigned] = useState(null);
+  const navigate = useNavigate();
   const fetchAssign = async ()=>{
     try {
       const res=await axiosInstance.get("/assignment/getAllAssignment");
@@ -15,6 +16,9 @@ const AssignLap = () => {
       console.log(error.message);
     }
   }
+  const HandleAssign =()=>{
+    navigate("/")
+  }
 
 
 useEffect(()=>{
@@ -24,7 +28,10 @@ useEffect(()=>{
   return (
     <>
       <AdNav />
-     <div className="flex flex-col justify-center items-center p-12">
+     <div className="flex flex-col justify-center items-center p-12 gap-10">
+        <div className="btn bg-green-500 p-4 w-60">
+          <button onClick={()=>HandleAssign()}>Assign</button>
+          </div>
         <div className="text-green-500">Assigned Laptop</div>
 
         {/* dynamic table 1 for Assigned laptop start..*/}

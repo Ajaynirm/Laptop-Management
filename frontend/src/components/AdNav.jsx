@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../lib/auth.js";
 export const AdNav = () => {
-  const {mode,setMode,logout} = auth();
+  const {mode, toggleTheme,logout} = auth();
   const navigate=useNavigate();
   const handleLogout = async ()=>{
     try {
@@ -78,9 +78,10 @@ export const AdNav = () => {
             <label className="grid cursor-pointer place-items-center">
               <input
                 type="checkbox"
+                checked={mode=="dark"}
                 value={"dark"}
                 className="toggle theme-controller bg-base-content col-span-2 col-start-1 row-start-1"
-                onChange={()=>setMode()}
+                onChange={()=>toggleTheme()}
               />
               <svg
                 className="stroke-base-100 fill-base-100 col-start-1 row-start-1"

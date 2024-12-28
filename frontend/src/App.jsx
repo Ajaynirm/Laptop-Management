@@ -66,6 +66,10 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/track" element={AuthAdmin ? <TrackStatus/>: <Navigate to="/admin-login" />} />  
         <Route path="/view" element={AuthAdmin ? <ViewReport/>: <Navigate to="/admin-login" />} />  
         <Route path="/add-lap" element={AuthAdmin ? <AddLaptop />: <Navigate to="/admin-login" />} /> 
+        
+        {/* need to setup later*/}
+        <Route path="/update-employe" element={AuthAdmin ? <AssignLap/>: <Navigate to="/admin-login" />} />  
+        <Route path="/delete-employe" element={AuthAdmin ? <TrackStatus/>: <Navigate to="/admin-login" />} /> 
 
         {/* protected route for authenticated employee */}
         <Route path="/emp" element={AuthEmployee ? <EmployHome/> : <Navigate to="/employee-login" />} />  
