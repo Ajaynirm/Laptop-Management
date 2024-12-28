@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { AdNav } from "../components/AdNav";
-import { axiosInstance } from "../lib/axios";
+import { axiosInstance } from "../lib/axios.js";
 
 const AssignLap = () => {
   const [assigned, setAssigned] = useState(null);
-  const [Unassigned, setUnAssigned] = useState(null);
   const fetchAssign = async ()=>{
     try {
-      const res=await axiosInstance.get("/manage/get-assigned");
+      const res=await axiosInstance.get("/assignment/getAllAssignment");
     if(res){
       setAssigned(res.data);
       console.log(res.data);
@@ -17,24 +16,11 @@ const AssignLap = () => {
     }
   }
 
-  const fetchUnAssign = async()=>{
-    try {
-      const res=await axiosInstance.get("/manage/get-assigned");
-    if(res){
-      setUnAssigned(res.data);
-      console.log(res.data);
-    }
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+
 useEffect(()=>{
   fetchAssign();
 },[]);
 
-useEffect(()=>{
-  fetchUnAssign();
-},[]);
   return (
     <>
       <AdNav />
@@ -42,19 +28,19 @@ useEffect(()=>{
         <div className="text-green-500">Assigned Laptop</div>
 
         {/* dynamic table 1 for Assigned laptop start..*/}
-        <div className="overflow-x-auto">
-          <table className="table">
+        <div className="overflow-auto max-h-[400px] w-full border border-gray-300 rounded">
+          <table className="table-auto w-full text-left">
             {/* head */}
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Serial Number</th>
-                <th>Status</th>
-                <th>Purchase Date</th>
+                <th>Employee ID</th>
+                <th>Laptop ID</th>
+                <th>Assigned At</th>
+                <th>Returned At</th>
                 <th>Re-Assign</th>
                 <th>Un-Assign</th>
+                <th>View Report</th>
               </tr>
             </thead>
 
@@ -67,7 +53,7 @@ useEffect(()=>{
                 assigned.map((item, index) => (
                   <tr
                     key={item.id}
-                    className={index % 2 === 0 ? "bg-base-200" : ""}
+                   
                   >
                     <th>{assigned.lapId}</th>
                     <td>{assigned.lap_brand}</td>
@@ -89,56 +75,7 @@ useEffect(()=>{
         </div>
 
         {/* assign table end */}
-      </div> 
-
-      <div className="flex flex-col justify-center items-center gap-8">
-        <div className="text-red-600">UnAssigned Laptop</div>
-        {/* dynamic table 1 for Assigned laptop start..*/}
-        <div className="overflow-x-auto">
-          <table className="table">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Serial Number</th>
-                <th>Status</th>
-                <th>Purchase Date</th>
-                <th>Update</th>
-                <th>Assign</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {!Unassigned ? (
-                <h4 className="flex justify-center items-center">
-                  No Unassigned available
-                </h4>
-              ) : (
-                Unassigned.map((item, index) => (
-                  <tr
-                    key={item.id}
-                    className={index % 2 === 0 ? "bg-base-200" : ""}
-                  >
-                    <th>{Unassigned.lapId}</th>
-                    <td>{Unassigned.lap_brand}</td>
-                    <td>{Unassigned.lap_model}</td>
-                    <td>{Unassigned.lap_serialNumber}</td>
-                    <td>{Unassigned.lap_status}</td>
-                    <td>{Unassigned.lap_purchaseDate}</td>
-                    <td>
-                      <button id={item.id}>update</button>
-                    </td>
-                    <td>
-                      <button id={item.id}>Delete</button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+     
 
         {/* assign table end */}
       </div>

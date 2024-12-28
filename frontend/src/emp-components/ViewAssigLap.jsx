@@ -1,66 +1,98 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import EmpNav from '../components/EmpNav';
+import toast from 'react-hot-toast';
+import { axiosInstance } from '../lib/axios.js';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../lib/auth.js';
 
 const ViewAssigLap = () => {
+  const navigate = useNavigate();
+  const {AuthEmployee} = auth();
+
   const[assigned,setAssigned]=useState(null);
+  const getAssignment = async()=>{
+    try {
+      const assignments = await axiosInstance.post("/assignment/getAssignment",AuthEmployee._id);
+      if(assignments.data.assignments){
+        console.log(assignments.data.assignments)
+        setAssigned(assignments.data.assignments);
+        toast.success("Assignment fetched");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+  const handleReport = ()=>{
+
+  }
+
+  const handleRefresh = async ()=>{
+      await getAssignment();
+      toast.success("Assignment Refreshed");
+  }
+
+
+  useEffect(()=> {
+    getAssignment();
+  },[]);
   return (
     <>
      <EmpNav />
 
-       <div className="flex flex-col justify-center items-center p-12">
-        <div className="text-green-500">Assigned Laptop</div>
+     <div className="flex flex-col justify-between items-center gap-10 w-full">
+  <div className="flex flex-row gap-10 p-5">
+    <button className="btn btn-accent" onClick={handleRefresh}>
+      Refresh
+    </button>
 
-        {/* dynamic table 1 for Assigned laptop start..*/}
-        <div className="overflow-auto sm:overflow-scroll">
-          <table className="table">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>S.No</th>
-                <th>ID</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Serial Number</th>
-                <th>Status</th>
-                <th>Purchase Date</th>
-                <th>update status</th>
-                <th>Report</th>
-              </tr>
-            </thead>
+  </div>
 
-            <tbody>
-              {!assigned ? (
-                <h4 className="flex justify-center items-center">
-                  No Assigned laptops available
-                </h4>
-              ) : (
-                assigned.map((item, index) => (
-                  <tr
-                    key={item.id}
-                    className={index % 2 === 0 ? "bg-base-200" : ""}
-                  >
-                    <th>{index+1}</th>
-                    <th>{assigned.lapId}</th>
-                    <td>{assigned.lap_brand}</td>
-                    <td>{assigned.lap_model}</td>
-                    <td>{assigned.lap_serialNumber}</td>
-                    <td>{assigned.lap_status}</td>
-                    <td>{assigned.lap_purchaseDate}</td>
-                    <td>
-                      <button id={item.id}>Update Status</button>
-                    </td>
-                    <td>
-                      <button id={item.id}>Report Status</button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* assign table end */}
-      </div> 
+  {/* Dynamic table */}
+  {!assigned ? (
+    <div className="flex justify-center items-center">
+      No Assignment available for you
+    </div>
+  ) : (
+    <div
+      className="overflow-auto max-h-[400px] w-full border border-gray-300 rounded"
+    >
+      <table className="table-auto w-full text-left">
+        {/* Table Head */}
+        <thead>
+          <tr>
+            <th className="p-2 border-b">S.No</th>
+            <th className="p-2 border-b text-center">Assignment ID</th>
+            <th className="p-2 border-b">Laptop Id</th>
+            <th className="p-2 border-b">Assigned At</th>
+            <th className="p-2 border-b">Returned at</th>
+            <th className="p-2 border-b">Report</th>
+          </tr>
+        </thead>
+        {/* Table Body */}
+        <tbody>
+          {assigned.length!=0 && assigned.map((item, index) => (
+            <tr key={index} >
+              <td className="p-2 border-b">{index + 1}</td>
+              <td className="p-2 border-b">{item._id}</td>
+              <td className="p-2 border-b">{item.laptopId}</td>
+              <td className="p-2 border-b">{item.assignedAt}</td>
+              <td className="p-2 border-b">{item.returnedAt}</td>
+              <td className="p-2 border-b text-center">
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleReport(index)}
+                >
+                  Report
+                </button>
+              </td>
+            
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
     </>
   )
 }

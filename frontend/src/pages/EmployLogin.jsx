@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
 import { auth } from '../lib/auth.js';
+import toast from 'react-hot-toast';
+
 const EmployLogin = () => {
     const {EmpLogin,isLoggin} = auth();
     const [formData, setFormData] = useState({
@@ -8,7 +10,16 @@ const EmployLogin = () => {
     });
     const handleSubmit = async (e) => {
       e.preventDefault();
-      EmpLogin(formData);
+      if(formData.email && formData.password.length >5){
+        toast.success("Processing credentials")
+        EmpLogin(formData);
+      }else if(!formData.email || !formData.password){
+        toast.error("enter all fields");
+      }else if(formData.password.length <6){
+        toast.error("enter valid password")
+      }
+
+      
       
     };
     if(isLoggin){

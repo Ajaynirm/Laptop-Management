@@ -11,16 +11,8 @@ const ManageLap = () => {
 
   const [laptops,setLaptops]=useState(null);
   const handleRefresh = async ()=> {
-    console.log("refresh clicked")
-    try{
-      const res = await getLaptop();
-      if(res){
-        toast.success("Refreshed Successfully,...")
-      }
-    }catch(e){
-      console.log("error")
-        toast.error("Failed to refresh");
-    }
+    await getLaptop();
+    toast.success("Refreshed");
   }
   const handleUpdate = (index)=> {
      console.log(index)

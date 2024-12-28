@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
 import EmpNav from '../components/EmpNav';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../lib/auth.js';
 
 const EmployHome = () => {
+  const {AuthEmployee} = auth();
   const [status,setStatus]=useState("Available");
   const navigate = useNavigate();
   return (
@@ -15,7 +17,7 @@ const EmployHome = () => {
   <div className="card-body">
     <h2 className="card-title"> 
       <span className='text-green-500'>Status:</span> 
-      <span>{status}</span>
+      <span>{AuthEmployee.status.toUpperCase()}</span>
     </h2>
   
   </div>
@@ -46,16 +48,7 @@ const EmployHome = () => {
             </div>
           </div>
         </div>
-      {/* third card */}
-      <div className="card card-compact bg-base-100 w-64 shadow-xl">
-         
-          <div className="card-body">
-            <h2 className="card-title">Report an Issue</h2>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary"  onClick={()=>navigate("/report-issue")}>Report</button>
-            </div>
-          </div>
-        </div>
+   
       
 
       </div>

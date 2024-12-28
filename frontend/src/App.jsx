@@ -17,7 +17,6 @@ import ViewAssigLap from "./emp-components/ViewAssigLap.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import EmployLogin from "./pages/EmployLogin.jsx";
 import RequestLap from "./emp-components/RequesLap.jsx"
-import ReportIssue from "./emp-components/ReportIssue.jsx";
 import UpdateLaptop from "./admin-components/UpdateLaptop.jsx";
 import DeleteLaptop from "./admin-components/DeleteLaptop.jsx";
 import ViewEmployee from "./admin-components/ViewEmployee.jsx";
@@ -72,7 +71,7 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/emp" element={AuthEmployee ? <EmployHome/> : <Navigate to="/employee-login" />} />  
         <Route path="/my-assign" element={AuthEmployee ? <ViewAssigLap/> : <Navigate to="/employee-login" />} /> 
         <Route path="/request-laptop" element={AuthEmployee ? <RequestLap/> : <Navigate to="/employee-login" />} /> 
-        <Route path="/report-issue" element={AuthEmployee ? <ReportIssue/> : <Navigate to="/employee-login" />} /> 
+        
 
 
           <Route path="/view-emp" element={AuthAdmin ? <ViewEmployee/> : <Navigate to="/Admin-login" />} />

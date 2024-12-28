@@ -5,7 +5,7 @@ const EmpNav = () => {
   const {logout} = auth();
   const navigate=useNavigate();
   const handleLogout = async()=>{
-    await logout();
+     await logout();
     navigate("/");
   }
   return (
@@ -39,16 +39,13 @@ const EmpNav = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <button onClick={navigate("/emp")}>Homepage</button>
+                  <button onClick={()=>navigate("/emp")}>Homepage</button>
                 </li>
                 <li>
-                  <button onClick={navigate("/my-assign")}>View Assigned</button>
+                  <button onClick={()=>navigate("/my-assign")}>View Assigned</button>
                 </li>
                 <li>
-                  <button onClick={navigate("/request--laptop")}>Request</button>
-                </li>
-                <li>
-                  <button onClick={navigate("/report-issue")}>Report</button>
+                  <button onClick={()=>navigate("/request-laptop")}>Request</button>
                 </li>
               </ul>
             </div>
