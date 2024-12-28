@@ -1,23 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../lib/auth.js";
+import toast from "react-hot-toast";
 export const AdNav = () => {
   const {mode, toggleTheme,logout} = auth();
   const navigate=useNavigate();
-  const handleLogout = async ()=>{
-    try {
-      const res=await logout(); 
-      if (res.status === 200) {
-        navigate("/");
-      } else {
-        console.error("Logout failed.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-   
-
-     
+  const handleLogout = async (e)=>{
+    e.preventDefault();
+    let res;
+       toast.promise(
+          res= logout(),
+          {
+            loading: "Logging  out...",
+            success: "Logout successful!",
+            error: "Logout failed. Please try again.",
+          }
+        )
+       navigate("/");
   }
 
   return (

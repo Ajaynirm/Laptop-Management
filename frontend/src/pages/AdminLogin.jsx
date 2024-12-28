@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { auth } from '../lib/auth.js';
-
+import toast from 'react-hot-toast';
 const AdminLogin = () => {
     const {AdmLogin,isLoggin} = auth();
     const [formData, setFormData] = useState({
@@ -9,9 +9,23 @@ const AdminLogin = () => {
     });
     const handleSubmit = async (e) => {
       e.preventDefault();
-      AdmLogin(formData);
-      
-    };
+      if(!formData.email || !formData.password){
+        toast.error("enter all fields");
+        return;
+      }else if(formData.password.length <6){
+        toast.error("enter valid password")
+        return;
+      }
+      toast.promise(
+        AdmLogin(formData),
+        {
+          loading: "Logging in...",
+          success: "Login successful!",
+          error: "Login failed. Please try again.",
+        }
+      )
+    
+    }
     if(isLoggin){
       return (
           <div className="flex items-center justify-center h-screen">

@@ -10,18 +10,23 @@ const EmployLogin = () => {
     });
     const handleSubmit = async (e) => {
       e.preventDefault();
-      if(formData.email && formData.password.length >5){
-        toast.success("Processing credentials")
-        EmpLogin(formData);
-      }else if(!formData.email || !formData.password){
+      if(!formData.email || !formData.password){
         toast.error("enter all fields");
+        return;
       }else if(formData.password.length <6){
         toast.error("enter valid password")
+        return;
       }
-
-      
-      
-    };
+      toast.promise(
+        EmpLogin(formData),
+        {
+          loading: "Logging in...",
+          success: "Login successful!",
+          error: "Login failed. Please try again.",
+        }
+      )
+    
+    }
     if(isLoggin){
       return (
           <div className="flex items-center justify-center h-screen">

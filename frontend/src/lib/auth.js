@@ -2,6 +2,10 @@ import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import { toast } from "react-hot-toast";
 
+
+
+
+
 export const auth = create((set) => ({
   laptopData: null,
   employeeData: null,
@@ -9,7 +13,7 @@ export const auth = create((set) => ({
   AuthEmployee: null,
   AuthAdmin: null,
 
-  mode: localStorage.setItem("theme","dark"),
+  mode: localStorage.getItem('theme') || 'light',
 
   isSigningUp: false,
   isLoggingIn: false,
@@ -50,9 +54,8 @@ export const auth = create((set) => ({
       console.log("started");
       const res = await axiosInstance.post("/auth/admin-login", data);
       set({ AuthAdmin: res.data });
-      toast.success("Logged in successfully");
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.log(error.message);
     } finally {
       set({ isLoggingIn: false });
     }
@@ -66,9 +69,8 @@ export const auth = create((set) => ({
       const res = await axiosInstance.post("/auth/employee-login", data);
       set({ AuthEmployee: res.data });
       console.log(res.data);
-      toast.success("Logged in successfully");
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.log(error.message)
     } finally {
       set({ isLoggingIn: false });
     }
@@ -80,12 +82,10 @@ export const auth = create((set) => ({
       if (res.data.status == "success") {
         set({ AuthAdmin: null });
         set({ AuthEmployee: null });
-        toast.success("Logged out successfully");
         return res;
       }
       throw new Error("Unexpected response");
     } catch (error) {
-      toast.error(error.response.data.message);
       throw error;
     }
   },
@@ -115,6 +115,10 @@ export const auth = create((set) => ({
     const newMode = currMode == "dark" ? "light" : "dark";
     set({mode: newMode})
     localStorage.setItem("theme", newMode); 
-    
   },
 }));
+
+
+
+
+
