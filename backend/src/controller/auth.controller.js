@@ -177,9 +177,11 @@ export const EmployeeLogin = async (req, res) => {
     generateToken(employee._id, res);
 
     res.status(200).json({
-      id: employee._id,
+      _id: employee._id,
       name: employee.name,
       email: employee.email,
+      status: employee.status
+
     });
   } catch (error) {
     console.log("Error in Admin login controller", error.message);

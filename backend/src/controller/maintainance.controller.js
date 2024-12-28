@@ -40,27 +40,9 @@ res.status(500).send({message:e.message});
 }
 
 
-export const reportIssue = async (req,res) => {
-const {issueId,laptopId,description,priority,status,reportedBy} = req.body;
-try{
-  const alreadyHaveId = await Issue.findById(issueId);
-  if(!alreadyHaveId){
-    const newIssue = new Issue({
-      issueId,laptopId,description,priority,status,reportedBy
-    });
-    const savedOrNot = await newIssue.save();
-    if(savedOrNot){
-      return res.status(201).send({message:"issue reported"});
-    }
-  }
-}catch(e){
-    res.status(500).send({messag:e.message});
-}
-}
-
 export const viewIsues= async (req,res) => {
     try{
-      const data = await Issue.find({});
+      const data = await Issue.find();
       if(data){
         return res.status(201).send({mesage:"Issues fetched Successfully"}).json(data);
       }

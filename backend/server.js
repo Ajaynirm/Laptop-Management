@@ -10,7 +10,7 @@ import authRoutes from "./src/route/auth.route.js";
 import employManageRoutes from './src/route/employee.manage.route.js'
 import laptopRoute from './src/route/laptop.manage.route.js'
 import maintainanceRoutes from './src/route/maintainance.route.js'
-
+import assignmentRoutes from "./src/route/assignment.route.js"
 
 dotenv.config();
 
@@ -32,6 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/manage",employManageRoutes);
 app.use("/api/laptop", laptopRoute);
 app.use("/api/maintain", maintainanceRoutes);
+app.use("/api/assignment",assignmentRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
