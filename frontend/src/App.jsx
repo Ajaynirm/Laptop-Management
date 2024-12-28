@@ -57,8 +57,7 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/employee-login" element={!AuthEmployee ? <EmployLogin /> :<Navigate to="/emp" />} />
 
         {/* All admin activities are enabled only they are authenticated abd saved using AuthAdmin global state by Zustand.. */}
-        <Route path="/admin" element={AuthAdmin ?<AdminHome/> : <Navigate to="/admin-login" />} />  
-        <Route path="/emp" element={AuthAdmin ? <EmployHome/> : <Navigate to="/admin-login" />} />      
+        <Route path="/admin" element={AuthAdmin ?<AdminHome/> : <Navigate to="/admin-login" />} />      
         <Route path="/manage" element={AuthAdmin ? <ManageLap/>: <Navigate to="/admin-login" />} /> 
 
         <Route path="/update-laptop" element={AuthAdmin ? <UpdateLaptop/>: <Navigate to="/admin-login" />} />
@@ -70,6 +69,7 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/add-lap" element={AuthAdmin ? <AddLaptop />: <Navigate to="/admin-login" />} /> 
 
         {/* protected route for authenticated employee */}
+        <Route path="/emp" element={AuthEmployee ? <EmployHome/> : <Navigate to="/employee-login" />} />  
         <Route path="/my-assign" element={AuthEmployee ? <ViewAssigLap/> : <Navigate to="/employee-login" />} /> 
         <Route path="/request-laptop" element={AuthEmployee ? <RequestLap/> : <Navigate to="/employee-login" />} /> 
         <Route path="/report-issue" element={AuthEmployee ? <ReportIssue/> : <Navigate to="/employee-login" />} /> 

@@ -63,6 +63,7 @@ const ViewReport = () => {
               <table className="table">
                 <thead>
                   <tr>
+                    <th>S.No</th>
                     <th>Laptop Id</th>
                     <th>description</th>
                     <th>status</th>
@@ -74,7 +75,8 @@ const ViewReport = () => {
                 </thead>
                 <tbody>
                   {maintenances.map((item, index) => (
-                    <tr key={item._id} className={index % 2 === 0 ? 'bg-base-200' : ''}>
+                    <tr key={item._id} >
+                      <td>{index+1}</td>
                       <td>{item._id}</td>
                       <td>{item.name}</td>
                       <td>{item.email}</td>

@@ -55,57 +55,75 @@ const ManageLap = () => {
   return (
    <>
         <AdNav/>
-        <div className='flex flex-col justify-between items-center gap-10 w-100px'>
-            <div  className='flex flex-row gap-10 p-20px'>
-              <button className='btn btn-accent ' onClick={()=>handleRefresh()}>Refresh</button>
-              <button className='btn btn-accent' onClick={()=> navigate('/add-lap')}>Add Laptop</button>
-            </div>
-            
-         <div>
-
-              {/* dynamic table start..*/}
-              {!laptops ? (
-  <div className="flex justify-center items-center">No laptops available</div>
-) : (
-  <div className="overflow-x-auto">
-    <table className="table">
-      {/* head */}
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Brand</th>
-          <th>Model</th>
-          <th>Serial Number</th>
-          <th>Status</th>
-          <th>Purchase Date</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {laptops.map((item, index) => (
-          <tr key={index} className={index % 2 === 0 ? "bg-base-200" : ""}>
-            <th>{item._id}</th>
-            <td>{item.brand}</td>
-            <td>{item.model}</td>
-            <td>{item.serialNumber}</td>
-            <td>{item.status}</td>
-            <td>{item.purchaseDate}</td>
-            <td>
-              <button onClick={()=>handleUpdate(index)}>Update</button>
-            </td>
-            <td>
-              <button onClick={()=>handleDelete(index)}>Delete</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+        <div className="flex flex-col justify-between items-center gap-10 w-full">
+  <div className="flex flex-row gap-10 p-5">
+    <button className="btn btn-accent" onClick={handleRefresh}>
+      Refresh
+    </button>
+    <button className="btn btn-accent" onClick={() => navigate('/add-lap')}>
+      Add Laptop
+    </button>
   </div>
-)}
 
+  {/* Dynamic table */}
+  {!laptops ? (
+    <div className="flex justify-center items-center">
+      No laptops available
     </div>
-            </div>
+  ) : (
+    <div
+      className="overflow-auto max-h-[400px] w-full border border-gray-300 rounded"
+    >
+      <table className="table-auto w-full text-left">
+        {/* Table Head */}
+        <thead>
+          <tr>
+            <th className="p-2 border-b">S.No</th>
+            <th className="p-2 border-b text-center">ID</th>
+            <th className="p-2 border-b">Brand</th>
+            <th className="p-2 border-b">Model</th>
+            <th className="p-2 border-b">Serial Number</th>
+            <th className="p-2 border-b">Status</th>
+            <th className="p-2 border-b text-center">Purchase Date</th>
+            <th className="p-2 border-b text-center">Update</th>
+            <th className="p-2 border-b text-center">Delete</th>
+          </tr>
+        </thead>
+        {/* Table Body */}
+        <tbody>
+          {laptops.map((item, index) => (
+            <tr key={index} >
+              <td className="p-2 border-b">{index + 1}</td>
+              <td className="p-2 border-b">{item._id}</td>
+              <td className="p-2 border-b">{item.brand}</td>
+              <td className="p-2 border-b">{item.model}</td>
+              <td className="p-2 border-b">{item.serialNumber}</td>
+              <td className="p-2 border-b">{item.status}</td>
+              <td className="p-2 border-b text-center">{item.purchaseDate}</td>
+              <td className="p-2 border-b text-center">
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleUpdate(index)}
+                >
+                  Update
+                </button>
+              </td>
+              <td className="p-2 border-b text-center">
+                <button
+                  className="btn btn-error"
+                  onClick={() => handleDelete(index)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
+
         
    </>
   )

@@ -3,7 +3,7 @@ import EmpNav from '../components/EmpNav';
 import { useNavigate } from 'react-router-dom';
 
 const EmployHome = () => {
-  const [status,setStatus]=useState("Free");
+  const [status,setStatus]=useState("Available");
   const navigate = useNavigate();
   return (
     <>
@@ -13,7 +13,10 @@ const EmployHome = () => {
         <div className="flex justify-center items-center p-5">
       <div className="card bg-base-100 w-96 shadow-xl">
   <div className="card-body">
-    <h2 className="card-title">Status: {status}</h2>
+    <h2 className="card-title"> 
+      <span className='text-green-500'>Status:</span> 
+      <span>{status}</span>
+    </h2>
   
   </div>
 </div>
@@ -48,7 +51,6 @@ const EmployHome = () => {
          
           <div className="card-body">
             <h2 className="card-title">Report an Issue</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
             <div className="card-actions justify-end">
               <button className="btn btn-primary"  onClick={()=>navigate("/report-issue")}>Report</button>
             </div>

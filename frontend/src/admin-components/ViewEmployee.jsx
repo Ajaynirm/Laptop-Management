@@ -60,57 +60,70 @@ const ViewEmployee = () => {
     <>
       <AdNav />
       <div className="flex flex-col justify-between items-center gap-10 w-full">
-        <div className="flex flex-row gap-10 p-5">
-          <button className="btn btn-accent" onClick={handleRefresh}>
-            Refresh
-          </button>
-          <button className="btn btn-accent" onClick={() => navigate('/add-emp')}>
-            Add Employee
-          </button>
-        </div>
+  <div className="flex flex-row gap-10 p-5">
+    <button className="btn btn-accent" onClick={handleRefresh}>
+      Refresh
+    </button>
+    <button className="btn btn-accent" onClick={() => navigate('/add-emp')}>
+      Add Employee
+    </button>
+  </div>
 
-        <div>
-          {/* Dynamic table */}
-          {employees.length === 0 ? (
-            <div className="flex justify-center items-center">
-              No Employees available to see
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Role</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {employees.map((item, index) => (
-                    <tr key={item._id} className={index % 2 === 0 ? 'bg-base-200' : ''}>
-                      <td>{item._id}</td>
-                      <td>{item.name}</td>
-                      <td>{item.email}</td>
-                      <td>{item.status}</td>
-                      <td>{item.role}</td>
-                      <td>
-                        <button onClick={() => handleUpdate(index)}>Update</button>
-                      </td>
-                      <td>
-                        <button onClick={() => handleDelete(index)}>Delete</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+  <div className="w-full">
+    {/* Dynamic table */}
+    {!employees ? (
+      <div className="flex justify-center items-center h-40">
+        No Employees available to see
       </div>
+    ) : (
+      <div className="overflow-y-auto max-h-[400px] w-full border border-gray-300 rounded shadow">
+        <table className="table-auto w-full text-left">
+          <thead>
+            <tr >
+              <th className="p-2 border-b">S.No</th>
+              <th className="p-2 border-b text-center">ID</th>
+              <th className="p-2 border-b">Name</th>
+              <th className="p-2 border-b text-center">Email</th>
+              <th className="p-2 border-b">Status</th>
+              <th className="p-2 border-b">Role</th>
+              <th className="p-2 border-b text-center">Update</th>
+              <th className="p-2 border-b text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.map((item, index) => (
+              <tr key={item._id} >
+                <td className="p-2 border-b">{index + 1}</td>
+                <td className="p-2 border-b text-center">{item._id}</td>
+                <td className="p-2 border-b">{item.name}</td>
+                <td className="p-2 border-b text-center">{item.email}</td>
+                <td className="p-2 border-b">{item.status}</td>
+                <td className="p-2 border-b">{item.role}</td>
+                <td className="p-2 border-b text-center">
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleUpdate(index)}
+                  >
+                    Update
+                  </button>
+                </td>
+                <td className="p-2 border-b text-center">
+                  <button
+                    className="btn btn-error"
+                    onClick={() => handleDelete(index)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+  </div>
+</div>
+
     </>
   );
 };

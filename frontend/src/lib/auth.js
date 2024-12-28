@@ -9,6 +9,7 @@ export const auth = create((set)=> ({
   
  AuthEmployee: null,
  AuthAdmin: null,
+ mode: "dark",
 
  isSigningUp: false,
  isLoggingIn: false,
@@ -17,7 +18,13 @@ export const auth = create((set)=> ({
  isCheckingAdminAuth: true,
  isCheckingEmployAuth: true,
 
-
+ setMode: (mode)=>{
+  if(mode=="dark"){
+    set({mode:"cupcake"});
+  }else{
+    set({mode:"dark"});
+  }
+ },
 
  //checking employee authentication by sending cookies received when employee login is success.     
   //by verifying cookies in backed with help of jwt 

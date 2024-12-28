@@ -11,11 +11,12 @@ const ViewAssigLap = () => {
         <div className="text-green-500">Assigned Laptop</div>
 
         {/* dynamic table 1 for Assigned laptop start..*/}
-        <div className="overflow-x-auto">
+        <div className="overflow-auto sm:overflow-scroll">
           <table className="table">
             {/* head */}
             <thead>
               <tr>
+                <th>S.No</th>
                 <th>ID</th>
                 <th>Brand</th>
                 <th>Model</th>
@@ -38,6 +39,7 @@ const ViewAssigLap = () => {
                     key={item.id}
                     className={index % 2 === 0 ? "bg-base-200" : ""}
                   >
+                    <th>{index+1}</th>
                     <th>{assigned.lapId}</th>
                     <td>{assigned.lap_brand}</td>
                     <td>{assigned.lap_model}</td>
