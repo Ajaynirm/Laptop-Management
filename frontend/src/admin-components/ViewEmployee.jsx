@@ -13,13 +13,14 @@ const ViewEmployee = () => {
 
   const handleRefresh = async () => {
     console.log('Refresh clicked');
-    try {
-      await getEmployee(); // Re-fetch employees
-      toast.success('Refreshed Successfully');
-    } catch (e) {
-      console.log('Error during refresh');
-      toast.error('Failed to refresh');
-    }
+    toast.promise(
+      getEmployee(),
+      {
+        loading: "fetching  data...",
+        success: "Refreshed successfully!",
+        error: "Failed to refresh. Please try again.",
+      }
+    )
   };
 
   const handleUpdate = (index) => {

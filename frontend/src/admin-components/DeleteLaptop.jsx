@@ -17,15 +17,16 @@ const DeleteLaptop = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axiosInstance.post("/laptop/delete-laptop", {_id:formData._id});
-      if (res) {
-        toast.success("Laptop Deleted successfully");
-        navigate("/manage")
+    
+    toast.promise(
+      axiosInstance.post("/laptop/delete-laptop", {_id:formData._id}),
+      {
+        loading: "Deleting  laptop...",
+        success: "Deleted successfully!",
+        error: "Failed to Delete. Please try again.",
       }
-    } catch (e) {
-      toast.error("Error while deleting laptop");
-    }
+    )
+      navigate("/manage")
   };
 
   return (

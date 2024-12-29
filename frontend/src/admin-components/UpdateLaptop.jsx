@@ -17,14 +17,16 @@ const UpdateLaptop = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axiosInstance.post("/laptop/update-laptop", formData);
-      if (res) {
-        toast.success("Laptop Updated successfully");
+    let res;
+    toast.promise(
+      res= axiosInstance.post("/laptop/update-laptop", formData),
+      {
+        loading: "Updating  laptop...",
+        success: "Updated successfully!",
+        error: "Failed to upload. Please try again.",
       }
-    } catch (e) {
-      toast.error("Error while Updating laptop");
-    }
+    )
+      navigate("/manage")
   };
 
   return (
