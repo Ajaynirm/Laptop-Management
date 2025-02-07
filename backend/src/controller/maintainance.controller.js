@@ -1,5 +1,6 @@
 import Maintenance from "../model/maintenance.model.js";
 import Issue from "../model/issues.model.js";
+import Assignment from "../model/assignment.model.js";
 
 export const addMaintainance = async (req,res) => {
   const {laptopId,description,status,cost} =req.body;
@@ -51,3 +52,28 @@ export const viewIsues= async (req,res) => {
       res.status(500).send({message:e.message});
     }
 }
+
+export const findUnassignedLaptopsInMaintenance = async (req, res) => {
+  try {
+    const assignedLaptopIds = await Assignment.distinct("laptopId");
+
+    const unassignedLaptops = await Maintenance.find({
+      laptopId: { $nin: assignedLaptopIds },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Laptops in maintenance but not assigned",
+      data: unassignedLaptops,
+    });
+
+  } catch (error) {
+    console.error("Error fetching unassigned laptops in maintenance:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};

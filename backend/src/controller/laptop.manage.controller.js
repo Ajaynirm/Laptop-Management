@@ -1,15 +1,14 @@
 import Laptop from "../model/laptop.model.js";
 
 
-// for debugging purpose i used console.log() to identify the place where occur
+
 export const addLaptop = async (req,res) => {
     const { brand,model,serialNumber,status,purchaseDate } = req.body;  
     try{
       const newLaptop = new Laptop({
         brand,model,serialNumber,status,purchaseDate
       });
-      //
-      console.log("laptop going to create")
+
       if (newLaptop) {
     
         await newLaptop.save();
@@ -19,7 +18,6 @@ export const addLaptop = async (req,res) => {
           brand: newLaptop.brand,
           model: newLaptop.model
         });
-        console.log("laptop created")
   
       } else {
         res.status(400).json({ message: "Invalid user data" });
@@ -98,13 +96,12 @@ export const addLaptop = async (req,res) => {
 
 export  const getAllLaptopId = async (req, res) => {
     try {
-      // Fetch laptops from the database
-      const laptops = await Laptop.find({}, '_id name'); // Only fetch `_id` and `name`
+    
+      const laptops = await Laptop.find({}, '_id name');
       if (!laptops || laptops.length === 0) {
         return res.status(404).json({ message: 'No laptops found' });
       }
-  
-      // Respond with the laptops
+
       res.status(200).json({
         message: 'Laptops fetched successfully',
         laptops,

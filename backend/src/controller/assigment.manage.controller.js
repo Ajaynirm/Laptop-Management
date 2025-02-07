@@ -1,6 +1,7 @@
 import Assignment from "../model/assignment.model.js";
 import Issue from "../model/issues.model.js";
 
+
 export const getEmployeeAssignment = async (req,res) => {
     const {_id} = req.body;
     try {
@@ -21,6 +22,7 @@ export const getAllAssignment = async (req,res) => {
       console.log(error.message);
   }
 }
+
 
 
 export const reportIssue = async (req,res) => {

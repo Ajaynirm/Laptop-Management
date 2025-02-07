@@ -29,7 +29,6 @@ export const AdminSignup = async (req, res) => {
     });
 
     if (newAdmin) {
-      // generate jwt token here
       generateToken(newAdmin._id,res);
       await newAdmin.save();
 
@@ -74,7 +73,6 @@ export const EmployeeSignup = async (req, res) => {
     });
 
     if (newEmployee) {
-      // generate jwt token here
       generateToken(newEmployee._id,res);
       await newEmployee.save();
 
@@ -137,11 +135,10 @@ export const AdminLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const admin = await Admin.findOne({ email });
-    console.log("up")
+
     if (!admin) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-    console.log("mid")
     const isPasswordCorrect = await bcrypt.compare(password, admin.password);
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -152,7 +149,6 @@ export const AdminLogin = async (req, res) => {
       name: admin.name,
       email: admin.email,
     });
-    console.log("down")
   } catch (error) {
     console.log("Error in Admin login controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });

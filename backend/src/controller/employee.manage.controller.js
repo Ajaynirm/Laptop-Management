@@ -18,6 +18,25 @@ export const getEmployee = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+export const getAvailableEmployees = async (req, res) => {
+  try {
+    const availableEmployees = await Employee.find({ status: "available" });
+
+    if (availableEmployees.length > 0) {
+      return res.status(200).json({
+        success: true,
+        employees: availableEmployees
+      });
+    } else {
+      return res.status(404).json({ success: false, message: "No available employees found" });
+    }
+  } catch (error) {
+    console.error("Error while getting available employees:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+
 
   // after work done need to update return date
   export const assignLaptop = async (req,res) => {
