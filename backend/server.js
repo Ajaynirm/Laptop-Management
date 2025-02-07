@@ -15,8 +15,6 @@ import assignmentRoutes from "./src/route/assignment.route.js";
 dotenv.config();
 
 const port = process.env.PORT;
-console.log(port);
-const __dirname = path.resolve();
 const app = express();
 
 app.use(express.json());
@@ -24,7 +22,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "https://laptop-management-phi.vercel.app/",
+      "https://laptop-management-phi.vercel.app",
       "http://localhost:5173",
     ],
     credentials: true,
