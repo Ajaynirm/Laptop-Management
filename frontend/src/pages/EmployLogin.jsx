@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 const EmployLogin = () => {
     const {EmpLogin,isLoggin} = auth();
     const [formData, setFormData] = useState({
-      email: "",
-      password: "",
+      email: "ab@gmail.com",
+      password: "123456",
     });
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -37,7 +37,11 @@ const EmployLogin = () => {
     return (
       <>
         <div className="flex flex-col  justify-center items-center p-20 gap-4 ">
+          <div>
+            For using purpose - details are already filled
+          </div>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        
             <span className="label-text font-medium">Email</span>
             <label className="input input-bordered w-64 flex items-center gap-2">
               <svg
@@ -49,7 +53,7 @@ const EmployLogin = () => {
                 <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
                 <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
               </svg>
-              <input type="text" className="grow" placeholder="Enter email" 
+              <input type="text" className="grow" value="ab@gmail.com" 
               onChange={(e)=>{setFormData({...formData,email: e.target.value})}}
               />
             </label>
@@ -64,7 +68,7 @@ const EmployLogin = () => {
                 <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
                 <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
               </svg>
-              <input type="text" className="grow" placeholder="enter password" 
+              <input type="text" className="grow" value="123456" 
               onChange={(e)=>{setFormData({...formData,password: e.target.value})}}
               />
             </label>

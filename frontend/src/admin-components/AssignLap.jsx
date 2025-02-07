@@ -17,7 +17,7 @@ const AssignLap = () => {
     }
   }
   const HandleAssign =()=>{
-    navigate("/")
+    navigate("/assign-page")
   }
 
 
@@ -29,8 +29,8 @@ useEffect(()=>{
     <>
       <AdNav />
      <div className="flex flex-col justify-center items-center p-12 gap-10">
-        <div className="btn bg-green-500 p-4 w-60">
-          <button onClick={()=>HandleAssign()}>Assign</button>
+        <div>
+          <button className="btn btn-primary bg-green-400 text-black" onClick={()=>HandleAssign()}>Assign</button>
           </div>
         <div className="text-green-500">Assigned Laptop</div>
 

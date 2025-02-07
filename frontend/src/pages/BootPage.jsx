@@ -14,9 +14,9 @@ const BootPage = () => {
         <div className="hero bg-base-200 min-h-screen">
   <div className="hero-content text-center">
     <div className="max-w-md">
-      <h1 className="text-5xl font-bold p-10">Laptop Management ...</h1>
+      <h1 className="text-5xl font-bold p-10">Laptop Management</h1>
       <p className="py-6">
-        Login As
+        A software tool for laptop Inventory Management.
       </p>
       <div className='flex justify-around items-center gap-10'>
           

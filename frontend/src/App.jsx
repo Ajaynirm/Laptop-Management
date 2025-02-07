@@ -22,6 +22,7 @@ import DeleteLaptop from "./admin-components/DeleteLaptop.jsx";
 import ViewEmployee from "./admin-components/ViewEmployee.jsx";
 import AddEmployee  from "./admin-components/AddEmployee.jsx";
 import AddMaintenance from "./admin-components/AddMaintenance.jsx";
+import AssignmentPage from "./admin-components/AssignmentPage.jsx";
 
 function App() {
   const {AuthAdmin,AuthEmployee,checkAdminAuth,checkEmpAuth, isCheckingAdminAuth,isCheckingEmployAuth}  = auth();
@@ -63,6 +64,7 @@ if(isCheckingAdminAuth && !AuthAdmin || isCheckingEmployAuth && !AuthEmployee)
         <Route path="/delete-laptop" element={AuthAdmin ? <DeleteLaptop/>: <Navigate to="/admin-login" />} />
 
         <Route path="/assign" element={AuthAdmin ? <AssignLap/>: <Navigate to="/admin-login" />} />  
+        <Route path="/assign-page" element={AuthAdmin ? <AssignmentPage /> : <Navigate to="/admin-login" />} /> 
         <Route path="/track" element={AuthAdmin ? <TrackStatus/>: <Navigate to="/admin-login" />} />  
         <Route path="/view" element={AuthAdmin ? <ViewReport/>: <Navigate to="/admin-login" />} />  
         <Route path="/add-lap" element={AuthAdmin ? <AddLaptop />: <Navigate to="/admin-login" />} /> 
